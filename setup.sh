@@ -21,8 +21,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Format: "label|skill_src|skills_dst|data_dir|detect_cmd"
 AGENTS=(
   "Claude Code|.claude/skills|$HOME/.claude/skills|$HOME/.claude/obsidian-brain|claude"
-  "Gemini CLI / Antigravity|.gemini/skills|$HOME/.gemini/skills|$HOME/.gemini/obsidian-brain|gemini"
-  "Universal — Codex, Cursor, Copilot +13 more|.agents/skills|$HOME/.agents/skills|$HOME/.agents/obsidian-brain|"
+  "Universal — Codex, Cursor, Gemini CLI, Copilot +13 more|.agents/skills|$HOME/.agents/skills|$HOME/.agents/obsidian-brain|"
 )
 
 # ── Banner ───────────────────────────────────────────────
