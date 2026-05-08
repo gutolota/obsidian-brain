@@ -24,6 +24,7 @@ If `$ARGUMENTS` is empty, ask the user: _"What rule should I learn? (e.g. 'alway
 Before adding the rule:
 
 - **Check for duplicates**: read `~/.claude/obsidian-brain/brain-rules.md` and compare with existing entries under `## Learned Rules`. If similar, propose refining the existing rule instead of adding a duplicate.
+
 - **Make it actionable**: rephrase vague rules into actionable instructions if needed. Show the user the final phrasing before saving.
 - **Confirm scope**: rules apply globally across all projects unless they explicitly mention a project. If the user says "for project X", make sure that's clear in the rule text.
 

@@ -46,3 +46,4 @@ aliases: [{{day_of_week}}]
 - Edit this file freely — the obsidian-brain skills only read it, never modify `config.md`
 - Paths with `~` are expanded automatically
 - The "Vault name" field is only used by the obsidian CLI
+- **Windows**: use `C:/Users/<username>/Documents/...` style paths (forward slashes work in most contexts)

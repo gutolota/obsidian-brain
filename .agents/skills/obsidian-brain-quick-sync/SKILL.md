@@ -1,6 +1,6 @@
 ---
 name: obsidian-brain:quick-sync
-description: Lightweight mid-session checkpoint — extract recent activity, append to today's daily note, apply learned rules. Faster and lighter than obsidian-brain:process. Use when the user wants to save progress without ending the session, says "checkpoint", "save progress", "quick save", or invokes /obsidian-brain:quick-sync directly. Does NOT offer /compact — use obsidian-brain:process for end-of-session wrap-up.
+description: Lightweight mid-session checkpoint — extract recent activity, append to today's daily note, apply learned rules. Faster and lighter than obsidian-brain:process. Use when the user wants to save progress without ending the session, says "checkpoint", "save progress", "quick save", or invokes /obsidian-brain:quick-sync directly. Does NOT suggest compression — use obsidian-brain:process for end-of-session wrap-up.
 ---
 
 # Obsidian Brain — Quick Sync
@@ -10,10 +10,11 @@ Lightweight checkpoint for mid-session progress. Saves what matters, doesn't int
 ## Step 1 — Load context
 
 Read:
-1. `~/.claude/obsidian-brain/config.md`
-2. `~/.claude/obsidian-brain/brain-rules.md`
+1. `~/.agents/obsidian-brain/config.md`
+2. `~/.agents/obsidian-brain/brain-rules.md`
 
-If missing, create from defaults in `~/.claude/skills/obsidian-brain/references/defaults.md`.
+
+If missing, create from defaults in the skill's `references/defaults.md`.
 
 ## Step 2 — Light extraction
 
@@ -27,11 +28,11 @@ Focus on what's **new** since the last sync (or since session start). Extract:
 
 Skip exhaustive references and learnings — those belong to `process`.
 
-For details, see `~/.claude/skills/obsidian-brain/references/extraction.md`.
+For details, see the skill's `references/extraction.md`.
 
 ## Step 3 — Append to daily note
 
-Follow the format in `~/.claude/skills/obsidian-brain/references/daily-note.md`:
+Follow the format in the skill's `references/daily-note.md`:
 - Add a new session entry under `## Sessions`
 - Merge new TODOs into `## Tasks` (no duplicates)
 
@@ -53,7 +54,7 @@ Use judgment: if a rule says "always log papers I cite" and a paper was cited, d
 
 ## Step 5 — Learn new rules
 
-Same as `process` — scan for meta-instructions and append to `brain-rules.md` if found. See `~/.claude/skills/obsidian-brain/references/learning.md`.
+Same as `process` — scan for meta-instructions and append to `~/.agents/obsidian-brain/brain-rules.md` if found. See the skill's `references/learning.md`.
 
 ## Step 6 — Brief confirmation
 
@@ -64,4 +65,4 @@ Same as `process` — scan for meta-instructions and append to `brain-rules.md` 
 
 Keep it short. The user is still working — don't interrupt with a long summary.
 
-**Do not offer `/compact`** — that's for `obsidian-brain:process`.
+**Do not suggest compression** — that's for `obsidian-brain:process`.

@@ -55,10 +55,15 @@ The main `/obsidian-brain` skill remains as a smart dispatcher for when you want
 │   │   └── SKILL.md                    name: obsidian-brain:status
 │   └── obsidian-*/                     ← kepano's obsidian-skills
 │
-└── obsidian-brain/                     ← USER DATA (preserved across reinstalls)
+└── obsidian-brain/                     ← USER DATA for Claude Code
     ├── config.md                       ← vault path, folders, behavior
     └── brain-rules.md                  ← LIVING document — grows over time
+
+~/.gemini/obsidian-brain/               ← USER DATA for Gemini CLI / Antigravity
+~/.codex/obsidian-brain/                ← USER DATA for Codex CLI
 ```
+
+Skill source files use `{BRAIN_DATA_DIR}` as a path token. Each setup/install script substitutes it with the agent-specific path at install time — so installed skills always reference the correct directory for that agent.
 
 The folder name on disk is just a folder name. The `name:` field in each `SKILL.md` frontmatter is what becomes the slash command — that's where the `:` namespacing lives.
 
@@ -78,7 +83,28 @@ This keeps the prompt context small for trivial calls (like `status`) while stil
 
 ## Installation
 
-### Option 1 — npx (no clone needed)
+### By agent
+
+| Agent | Platform | Install |
+|-------|----------|---------|
+| **Claude Code** | Linux / macOS | `./setup.sh` or `npx skills add` (see below) |
+| **Claude Code** | Windows | `.\setup.ps1` in PowerShell |
+| **Gemini CLI / Antigravity** | Linux / macOS | `./adapters/gemini/install.sh` |
+| **OpenAI Codex CLI** | Linux / macOS | `./adapters/codex/install.sh` |
+
+Each agent gets its own data directory — brain rules are agent-specific by default.
+
+### Data directory by agent and OS
+
+| Agent | Linux / macOS | Windows |
+|-------|--------------|---------|
+| Claude Code | `~/.claude/obsidian-brain/` | `%APPDATA%\Claude\obsidian-brain\` |
+| Gemini CLI | `~/.gemini/obsidian-brain/` | _(use WSL)_ |
+| Codex CLI | `~/.codex/obsidian-brain/` | _(use WSL)_ |
+
+---
+
+### Claude Code — Option 1: npx (no clone needed)
 
 ```bash
 npx skills add https://github.com/gutolota/obsidian-brain
@@ -96,16 +122,18 @@ nano ~/.claude/obsidian-brain/config.md   # set Vault path and Daily Notes folde
 
 ---
 
-### Option 2 — setup script (includes kepano's obsidian-skills)
+### Claude Code — Option 2: setup script (includes kepano's obsidian-skills)
 
 ```bash
 git clone https://github.com/gutolota/obsidian-brain
 cd obsidian-brain
 chmod +x setup.sh
-./setup.sh
+./setup.sh              # Linux / macOS
+# .\setup.ps1           # Windows (PowerShell)
 ```
 
 The setup script does everything npx does, plus:
+- Substitutes the correct data directory path into installed skill files
 - Installs [kepano's obsidian-skills](https://github.com/kepano/obsidian-skills) as companion formatting helpers (Obsidian Markdown, CLI, Bases, Canvas)
 - Pre-creates `config.md` and `brain-rules.md` with sane defaults — no need to trigger bootstrap manually
 
@@ -115,7 +143,37 @@ After install, edit `~/.claude/obsidian-brain/config.md` with your real vault pa
 
 ---
 
-### After either method
+### Gemini CLI / Antigravity
+
+```bash
+git clone https://github.com/gutolota/obsidian-brain
+cd obsidian-brain
+./adapters/gemini/install.sh
+```
+
+Then edit `~/.gemini/obsidian-brain/config.md` with your vault path.
+
+In any Gemini session, use natural language: `"sync to obsidian"`, `"save session"`, `"wrap up"`.
+
+See [`adapters/gemini/README.md`](adapters/gemini/README.md) for details.
+
+---
+
+### OpenAI Codex CLI
+
+```bash
+git clone https://github.com/gutolota/obsidian-brain
+cd obsidian-brain
+./adapters/codex/install.sh
+```
+
+Then edit `~/.codex/obsidian-brain/config.md` with your vault path.
+
+See [`adapters/codex/README.md`](adapters/codex/README.md) for details.
+
+---
+
+### After install (Claude Code)
 
 | File | Purpose | Edit? |
 |------|---------|-------|

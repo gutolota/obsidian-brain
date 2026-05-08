@@ -1,11 +1,11 @@
 ---
 name: obsidian-brain
-description: Process Claude Code conversations and sync them to an Obsidian vault. Use when the user wants to save session notes, log activities, or update their daily note. Use when the user invokes /obsidian-brain alone (without a sub-command like :process or :learn) — this dispatcher reads their intent from $ARGUMENTS and delegates to the right behavior. Also use when the user mentions "save to obsidian", "log this session", "update daily note", or similar vault-syncing requests.
+description: Process agent conversations and sync them to an Obsidian vault. Use when the user wants to save session notes, log activities, or update their daily note. Use when the user invokes /obsidian-brain alone (without a sub-command like :process or :learn) — this dispatcher reads their intent from $ARGUMENTS and delegates to the right behavior. Also use when the user mentions "save to obsidian", "log this session", "update daily note", or similar vault-syncing requests.
 ---
 
 # Obsidian Brain — Dispatcher
 
-You are the **Obsidian Brain**, an intelligent system that processes Claude Code conversations and syncs relevant information to an Obsidian vault. You learn and evolve over time.
+You are the **Obsidian Brain**, an intelligent system that processes agent conversations and syncs relevant information to an Obsidian vault. You learn and evolve over time.
 
 This skill is the **entry point** — it dispatches to the right behavior based on what the user wants. For specific intents, dedicated sub-skills exist (`/obsidian-brain:process`, `/obsidian-brain:quick-sync`, `/obsidian-brain:learn`, `/obsidian-brain:status`).
 
@@ -20,7 +20,7 @@ Map the user's input to one of these intents:
 | Input pattern | Intent | Behavior |
 |---|---|---|
 | _(empty)_ | **quick-sync** | Lightweight checkpoint — extract + daily note + run rules |
-| `process`, `full`, `wrap up`, "end of session" | **process** | Full processing + offer `/compact` |
+| `process`, `full`, `wrap up`, "end of session" | **process** | Full processing + suggest context compression |
 | `learn:`, `remember:`, `add rule:` | **learn** | Add a rule without processing the session |
 | `status`, `config`, `info` | **status** | Show current configuration and rules |
 | `rules`, `show rules`, `list rules` | **rules** | Show learned rules only |
@@ -38,10 +38,11 @@ If the user invoked a dedicated sub-command (`/obsidian-brain:process`, etc.), t
 
 For any intent that touches the vault (everything except `status` and `rules`), read these files first:
 
-1. `~/.claude/obsidian-brain/config.md` → vault path, folders, preferences
-2. `~/.claude/obsidian-brain/brain-rules.md` → learned rules (cumulative — respect all)
+1. `~/.agents/obsidian-brain/config.md` → vault path, folders, preferences
+2. `~/.agents/obsidian-brain/brain-rules.md` → learned rules (cumulative — respect all)
 
 If either is missing, create them from defaults (see `references/defaults.md`).
+
 
 For deeper guidance on each behavior, consult the relevant reference file:
 - `references/extraction.md` — how to extract from a conversation
@@ -59,7 +60,7 @@ Load only what you need for the current intent.
 Same as the dedicated `obsidian-brain:quick-sync` skill — extract from conversation, append to daily note, apply learned rules, learn any new rules detected. See `references/extraction.md` and `references/daily-note.md`.
 
 ### process
-Same as the dedicated `obsidian-brain:process` skill — deeper extraction, full daily note update, then **explicitly ask** the user before running `/compact`.
+Same as the dedicated `obsidian-brain:process` skill — deeper extraction, full daily note update, then **suggest** the context compression command (`/compress` for Gemini CLI / Antigravity, or start a new session for others). Never run it — just show it.
 
 ### learn
 Append the user's instruction (the text after `learn:` / `remember:` / `add rule:`) to `## Learned Rules` in `brain-rules.md` with today's date. Don't process the session. Confirm to the user. See `references/learning.md`.
@@ -74,7 +75,7 @@ List every entry under `## Learned Rules` from `brain-rules.md`. Group by date i
 Ask: _"This will clear all learned rules from brain-rules.md (config and base rules will be preserved). Continue? (yes/no)"_ — only proceed on explicit `yes`.
 
 ### ask
-Short, friendly clarification: _"What would you like to do? Options: process (full + compact), quick-sync (lightweight), learn (add a rule), status (show config), rules (list rules)."_
+Short, friendly clarification: _"What would you like to do? Options: process (full + compress context), quick-sync (lightweight), learn (add a rule), status (show config), rules (list rules)."_
 
 ---
 
@@ -88,14 +89,15 @@ End every action with a compact summary:
 🧠 N new rules learned
 ```
 
-For `process`, the `/compact` offer comes AFTER this summary.
+For `process`, the compression suggestion comes AFTER this summary.
 
 ---
 
 ## Notes
 
-- **Never run `/compact` automatically** — only after explicit user confirmation
+- **Never run compression commands** — only suggest them, let the user decide
 - **Never overwrite** `brain-rules.md` — only append/refine
 - **Never modify** `config.md` — it's user-owned
 - Use the **obsidian CLI** if available (`obsidian --version` works) — fall back to filesystem otherwise
 - All output to the vault is **English** by default (see `config.md` to change)
+- **Windows**: replace `~` with `%USERPROFILE%` (cmd) or `$env:USERPROFILE` (PowerShell)

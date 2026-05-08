@@ -1,17 +1,12 @@
 #!/usr/bin/env bash
 # ══════════════════════════════════════════════════════════
-#  Obsidian Brain — Skill Setup
+#  Obsidian Brain — Claude Code Setup
 #
 #  Installs the obsidian-brain skill family into ~/.claude/skills/
-#  Each skill provides a slash command:
-#    /obsidian-brain                — dynamic dispatcher
-#    /obsidian-brain:process        — full + offer compact
-#    /obsidian-brain:quick-sync     — lightweight checkpoint
-#    /obsidian-brain:learn          — teach a rule
-#    /obsidian-brain:status         — show config and rules
+#  and bootstraps user data at ~/.claude/obsidian-brain/.
 #
-#  User data (config.md, brain-rules.md) lives in
-#  ~/.claude/obsidian-brain/ — preserved across reinstalls.
+#  For other agents (Gemini CLI, Codex, Cursor, etc.) use npx:
+#    npx skills add gutolota/obsidian-brain -g
 # ══════════════════════════════════════════════════════════
 set -euo pipefail
 
@@ -28,7 +23,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo ""
 echo -e "${CYAN}┌──────────────────────────────────────────┐${NC}"
-echo -e "${CYAN}│   🧠 Obsidian Brain — Skill Setup         │${NC}"
+echo -e "${CYAN}│   🧠 Obsidian Brain — Claude Code Setup   │${NC}"
 echo -e "${CYAN}└──────────────────────────────────────────┘${NC}"
 echo ""
 
@@ -38,19 +33,13 @@ mkdir -p "$SKILLS_DIR" "$DATA_DIR"
 # ── 2. Install skills ────────────────────────────────────
 echo -e "${DIM}Installing skills...${NC}"
 
-# Each skill is a directory with a SKILL.md inside.
-# The folder name on disk doesn't matter — the `name:` in frontmatter
-# is what becomes the slash command (with `:` for namespacing).
-
-for skill_src_dir in "$SCRIPT_DIR/skills/"*/; do
+for skill_src_dir in "$SCRIPT_DIR/.claude/skills/"*/; do
     skill_name=$(basename "$skill_src_dir")
     target="$SKILLS_DIR/$skill_name"
 
-    # Always overwrite the skill itself — it's the prompt logic
     rm -rf "$target"
     cp -r "$skill_src_dir" "$target"
 
-    # Read the slash command name from frontmatter for display
     slash_cmd=$(grep -m1 '^name:' "$target/SKILL.md" | sed 's/name: *//')
     echo -e "  ${GREEN}✓${NC} /${slash_cmd}"
 done
@@ -119,6 +108,9 @@ echo -e "  1. ${CYAN}Edit your vault path:${NC}"
 echo -e "     ${DIM}$DATA_DIR/config.md${NC}"
 echo ""
 echo -e "  2. ${CYAN}Try it:${NC} in any project, run ${CYAN}/obsidian-brain:status${NC}"
+echo ""
+echo -e "  ${DIM}Using Gemini, Codex, Cursor, or another agent?${NC}"
+echo -e "  ${DIM}Run: npx skills add gutolota/obsidian-brain -g${NC}"
 echo ""
 echo -e "  ${DIM}Re-run setup.sh anytime — config and learned rules are preserved.${NC}"
 echo ""

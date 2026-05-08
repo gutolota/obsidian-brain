@@ -13,6 +13,7 @@ Read:
 - `~/.claude/obsidian-brain/config.md`
 - `~/.claude/obsidian-brain/brain-rules.md`
 
+
 If either is missing, tell the user: _"Brain not initialized yet. Run `/obsidian-brain` once to create defaults, or run the setup script."_
 
 ## Step 2 — Format the report
@@ -56,4 +57,4 @@ Don't modify anything. This is informational only.
 
 If the user wants to change something, point them at the files:
 - _"Edit `~/.claude/obsidian-brain/config.md` to change vault path or behavior."_
-- _"Edit `~/.claude/obsidian-brain/brain-rules.md` to adjust rules manually, or use `/obsidian-brain:learn` to add new ones."_
+- _"Edit `~/.claude/obsidian-brain/brain-rules.md` to adjust rules manually, or use the learn command to add new ones."_
