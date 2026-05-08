@@ -1,6 +1,6 @@
 ---
 name: obsidian-brain:process
-description: Full end-of-session processing — deep extraction, daily note update, run all learned rules, then suggest context compression after saving. Use when the user is wrapping up a working session, says "end session", "wrap up", "save and compact", or invokes /obsidian-brain:process directly. This is the most thorough sync; prefer obsidian-brain:quick-sync for lightweight mid-session checkpoints.
+description: Full end-of-session processing — deep extraction, daily note update, run all learned rules, then suggest context compression. Use when the user is wrapping up a working session, says "end session", "wrap up", "save and compact", or invokes /obsidian-brain:process directly. This is the most thorough sync; prefer obsidian-brain:quick-sync for lightweight mid-session checkpoints.
 ---
 
 # Obsidian Brain — Process (full + offer compact)
@@ -46,7 +46,35 @@ Follow the daily note format in the skill's `references/daily-note.md`:
 
 Use **obsidian CLI** if Obsidian is open (`obsidian daily:append`), otherwise write directly to the filesystem at the path in `config.md`.
 
-## Step 4 — Execute extra rules
+## Step 4 — Update project files (if workspace is linked)
+
+Check `~/.agents/obsidian-brain/workspace-links.md` for an entry matching the current working directory.
+
+If a link exists, resolve `<vault>/<project-folder>/` and update:
+
+### `activity-log.md` — prepend a new entry (newest at top)
+```markdown
+### YYYY-MM-DD HH:MM — <short title>
+<2-3 sentence summary of what was done>
+
+**Files:** `path1`, `path2`
+
+> [!summary] Decisions
+> - Decision with reasoning
+```
+Omit the decisions callout if no decisions this session.
+
+### `decisions.md` — append new rows to the table
+For each technical decision extracted, add a row:
+```markdown
+| YYYY-MM-DD | Decision made | Reasoning behind it |
+```
+Skip if no new decisions.
+
+### `context.md` — **never overwrite**
+Read-only here. If the "Current focus" section exists and is stale relative to the session, note in the summary that the user may want to update it manually.
+
+## Step 6 — Execute extra rules
 
 For each rule in `~/.agents/obsidian-brain/brain-rules.md` under `## Learned Rules`, check if it applies to this session and execute it. Common patterns:
 - Maintain per-project activity logs
@@ -54,7 +82,7 @@ For each rule in `~/.agents/obsidian-brain/brain-rules.md` under `## Learned Rul
 - Update reference notes for cited papers/links
 - Track technical debt with tags
 
-## Step 5 — Learn new rules
+## Step 7 — Learn new rules
 
 Scan the conversation for **meta-instructions** (anything about how the brain should behave). For each:
 1. Open `~/.agents/obsidian-brain/brain-rules.md`
@@ -64,7 +92,7 @@ Scan the conversation for **meta-instructions** (anything about how the brain sh
 
 See the skill's `references/learning.md` for details.
 
-## Step 6 — Show summary
+## Step 8 — Show summary
 
 ```
 ✅ Daily note updated: [[YYYY-MM-DD]]
@@ -72,25 +100,26 @@ See the skill's `references/learning.md` for details.
 📋 N TODOs added · N decisions logged
 🧠 N new rules learned: "..."
 📂 Files updated: <list>
+🔗 Project files updated: activity-log.md · decisions.md  (omit if no link)
 ```
 
-## Step 7 — Suggest context compression (REQUIRED for process)
+## Step 9 — Suggest context compression (REQUIRED for process)
 
-After the summary, suggest the user free up context. Just tell them the command — **never run it yourself**.
+After the summary, suggest compression — **never run the command yourself**.
 
-Pick the right command based on the current agent:
+Pick based on the current agent:
 
 | Agent | Command |
 |-------|---------|
 | Gemini CLI / Antigravity | `/compress` |
 | All others | start a new session |
 
-Present this message verbatim, filling in `<command>`:
+Show one line:
 
 ```
 🧠 Session saved to your vault.
 
-To free up context: <command>
+To compress context: <command>
 ```
 
 That's it. One line. Do not ask "would you like me to…" — just show the command and let the user decide.

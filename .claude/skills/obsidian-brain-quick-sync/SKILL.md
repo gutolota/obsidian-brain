@@ -46,17 +46,30 @@ Use shorter session entries than `process` — quick-sync favors brevity:
 
 Skip the decisions callout unless decisions are significant. Skip references unless they're crucial.
 
-## Step 4 — Apply learned rules
+## Step 4 — Update project activity log (if workspace is linked)
+
+Check `~/.claude/obsidian-brain/workspace-links.md` for the current working directory.
+
+If a link exists, prepend a brief entry to `<vault>/<project-folder>/activity-log.md`:
+```markdown
+### YYYY-MM-DD HH:MM — <short title>
+<2-3 sentence summary>
+
+**Files:** `path1`, `path2`
+```
+No decisions table update here — that's for `process`.
+
+## Step 5 — Apply learned rules
 
 Run only the rules that fit a checkpoint context. Skip rules that imply heavy reflection (e.g., "create separate decision notes" → those usually wait for `process`).
 
 Use judgment: if a rule says "always log papers I cite" and a paper was cited, do it. If it says "create architecture decision notes for major decisions" and nothing major happened, skip.
 
-## Step 5 — Learn new rules
+## Step 6 — Learn new rules
 
 Same as `process` — scan for meta-instructions and append to `~/.claude/obsidian-brain/brain-rules.md` if found. See the skill's `references/learning.md`.
 
-## Step 6 — Brief confirmation
+## Step 7 — Brief confirmation
 
 ```
 ✓ Quick-sync done — [[YYYY-MM-DD]] updated

@@ -25,6 +25,8 @@ Map the user's input to one of these intents:
 | `status`, `config`, `info` | **status** | Show current configuration and rules |
 | `rules`, `show rules`, `list rules` | **rules** | Show learned rules only |
 | `reset` | **reset** | Confirm with user, then clear learned rules |
+| `link`, `link to`, "connect to vault" | **link** | Link workspace to a vault project folder |
+| `context`, `load context`, "what do we know" | **context** | Load vault context for the current workspace |
 | Free text like _"focus on X"_ | **quick-sync (focused)** | Quick sync with that focus area |
 | Anything else ambiguous | **ask** | Briefly ask the user what they want |
 
@@ -60,7 +62,7 @@ Load only what you need for the current intent.
 Same as the dedicated `obsidian-brain:quick-sync` skill — extract from conversation, append to daily note, apply learned rules, learn any new rules detected. See `references/extraction.md` and `references/daily-note.md`.
 
 ### process
-Same as the dedicated `obsidian-brain:process` skill — deeper extraction, full daily note update, then **suggest** the context compression command (`/compress` for Gemini CLI / Antigravity, or start a new session for others). Never run it — just show it.
+Same as the dedicated `obsidian-brain:process` skill — deeper extraction, full daily note update, then **suggest** context compression (`/compress` for Gemini, new session for others). Never run it — just show it.
 
 ### learn
 Append the user's instruction (the text after `learn:` / `remember:` / `add rule:`) to `## Learned Rules` in `brain-rules.md` with today's date. Don't process the session. Confirm to the user. See `references/learning.md`.
@@ -74,8 +76,14 @@ List every entry under `## Learned Rules` from `brain-rules.md`. Group by date i
 ### reset
 Ask: _"This will clear all learned rules from brain-rules.md (config and base rules will be preserved). Continue? (yes/no)"_ — only proceed on explicit `yes`.
 
+### link
+Same as `obsidian-brain:link` — bind the current workspace to a vault project folder.
+
+### context
+Same as `obsidian-brain:context` — load vault files for the linked project into working memory.
+
 ### ask
-Short, friendly clarification: _"What would you like to do? Options: process (full + compress context), quick-sync (lightweight), learn (add a rule), status (show config), rules (list rules)."_
+Short, friendly clarification: _"What would you like to do? Options: process, quick-sync, learn, link, context, status, rules."_
 
 ---
 
