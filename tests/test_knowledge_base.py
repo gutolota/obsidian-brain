@@ -31,6 +31,10 @@ def test_hash_index_search_graph_and_secret_exclusion(tmp_path):
     )
     (raw / "Senha pessoal.md").write_text("senha: não-indexar\n", encoding="utf-8")
     (raw / "Conta.md").write_text("username: pessoa\npassword: segredo\n", encoding="utf-8")
+    (raw / "Configuração.md").write_text("client_secret = exemplo-secreto-123456\n", encoding="utf-8")
+    (raw / "Cabeçalhos.md").write_text("Authorization: Bearer exemplo-token-123456\n", encoding="utf-8")
+    (raw / "Privada.md").write_text("---\nvisibility: private\n---\nconteúdo reservado\n", encoding="utf-8")
+    (raw / "Banco.md").write_text("postgresql://usuario:segredo@localhost/base\n", encoding="utf-8")
     db = tmp_path / "knowledge.db"
 
     built = run_kb(db, "build", str(vault), "--backend", "hash")

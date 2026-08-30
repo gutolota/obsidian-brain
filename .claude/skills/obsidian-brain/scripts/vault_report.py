@@ -21,8 +21,18 @@ SENSITIVE_NAME_RE = re.compile(
     re.IGNORECASE,
 )
 SENSITIVE_CONTENT_RE = re.compile(
-    r"(?:BEGIN (?:OPENSSH|RSA|EC|DSA) PRIVATE KEY|visibility:\s*private|type:\s*credential|"
-    r"^\s*(?:senha|password|passwd|psswd|username|login|user|token|api[ _-]?key)\b.{0,80}:\s*\S+)",
+    r"(?:"
+    r"BEGIN (?:OPENSSH|RSA|EC|DSA) PRIVATE KEY|"
+    r"visibility:\s*(?:private|secret)|type:\s*credential|"
+    r"^\s*(?:senha|password|passwd|psswd|username|login|user|token|access[_ -]?token|"
+    r"refresh[_ -]?token|client[_ -]?secret|api[ _-]?key|private[ _-]?key|x-api-key)\b"
+    r".{0,80}[:=]\s*\S+|"
+    r"^\s*authorization\s*:\s*(?:bearer|basic)\s+\S+|"
+    r"\b(?:AKIA[0-9A-Z]{16}|gh[pousr]_[A-Za-z0-9_]{30,}|AIza[0-9A-Za-z_-]{30,}|"
+    r"xox[baprs]-[A-Za-z0-9-]{20,}|sk-[A-Za-z0-9_-]{20,}|"
+    r"eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,})\b|"
+    r"\b(?:postgres(?:ql)?|mysql|mongodb(?:\+srv)?)://[^\s/:]+:[^\s/@]+@"
+    r")",
     re.IGNORECASE | re.MULTILINE,
 )
 RAW_DEFAULT = "1 - Notas brutas"

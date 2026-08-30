@@ -16,6 +16,8 @@ Hermes Gateway runs the same agent core, file tools, skills, and memory on Teleg
 - Keep `group_sessions_per_user: true` unless a deliberately shared knowledge-room session is required.
 - Discord should normally require mentions; Telegram groups should normally require mentions even when observation is enabled.
 
+Credential detection is a best-effort defense-in-depth filter, not proof that every possible secret format was detected. Channel authorization and source-folder policy remain mandatory. In shared channels, retrieve only from paths allowed by `channel-policy.md`, inspect the cited source, redact sensitive values, and never reveal a raw index snippet merely because it was retrieved.
+
 ## Local retrieval architecture
 The bundled helper uses SQLite FTS5, an explicit wikilink edge table, and 384-dimensional neural embeddings from `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2` through FastEmbed/ONNX. It runs locally after the one-time model download, with no API, subscription, embedding bill, or external database. A deterministic hashed-vector backend remains available as a fallback.
 

@@ -40,6 +40,9 @@ Uma ideia sobre grafos e linguagem.
     (complete / "Grafos.md").write_text("# Grafos\n\nVeja [[Ideia]].\n", encoding="utf-8")
     (raw / "Senha pessoal.md").write_text("senha: não-indexar\n- [ ] Tarefa privada\n", encoding="utf-8")
     (raw / "Conta.md").write_text("username: pessoa\npassword: segredo\n", encoding="utf-8")
+    (raw / "Configuração.md").write_text("client_secret = exemplo-secreto-123456\n- [ ] Tarefa privada 2\n", encoding="utf-8")
+    (raw / "Cabeçalhos.md").write_text("Authorization: Bearer exemplo-token-123456\n", encoding="utf-8")
+    (raw / "Privada.md").write_text("---\nvisibility: private\n---\n- [ ] Tarefa privada 3\n", encoding="utf-8")
 
     payload = run_report(vault, "--write", "--json", str(tmp_path / "inventory.json"))
 
