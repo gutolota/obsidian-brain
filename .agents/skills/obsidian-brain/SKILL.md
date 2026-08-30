@@ -27,6 +27,15 @@ Map the user's input to one of these intents:
 | `reset` | **reset** | Confirm with user, then clear learned rules |
 | `link`, `link to`, "connect to vault" | **link** | Link workspace to a vault project folder |
 | `context`, `load context`, "what do we know" | **context** | Load vault context for the current workspace |
+| `triage`, "organize inbox", "classify raw notes" | **triage** | Build a safe review queue for raw notes |
+| `refine`, "polish note", "complete this note" | **refine** | Draft a sourced evergreen note |
+| `connect`, "link ideas", "find related notes" | **connect** | Suggest justified semantic links |
+| `reflect`, "what have I been thinking" | **reflect** | Produce an evidence-backed theme report |
+| `weekly review`, "review my week" | **weekly-review** | Aggregate tasks, notes, and recent work |
+| `query`, "ask my vault", "search knowledge base" | **query** | Retrieve and answer from cited vault notes |
+| `capture`, "save this message", "send to obsidian" | **capture** | Save explicit content to the raw-note inbox |
+| `graph`, "what connects to this note" | **graph** | Explore wikilinks and local vector neighbors |
+| `agenda`, "process my journal", "organize deadlines" | **agenda** | Aggregate daily-note tasks and propose dates |
 | Free text like _"focus on X"_ | **quick-sync (focused)** | Quick sync with that focus area |
 | Anything else ambiguous | **ask** | Briefly ask the user what they want |
 
@@ -51,6 +60,11 @@ For deeper guidance on each behavior, consult the relevant reference file:
 - `references/daily-note.md` — daily note format and append rules
 - `references/learning.md` — how meta-instructions become rules
 - `references/obsidian-formatting.md` — wikilinks, callouts, properties
+- `references/note-lifecycle.md` — raw-to-evergreen states and transitions
+- `references/task-policy.md` — task extraction and aggregation rules
+- `references/link-policy.md` — evidence required for semantic links
+- `references/reflection.md` — windows, counts, and interpretation limits
+- `references/safety-and-provenance.md` — approval and source-preservation rules
 
 Load only what you need for the current intent.
 
@@ -82,8 +96,11 @@ Same as `obsidian-brain:link` — bind the current workspace to a vault project 
 ### context
 Same as `obsidian-brain:context` — load vault files for the linked project into working memory.
 
+### triage / refine / connect / reflect / weekly-review / query / capture / graph / agenda
+Use the matching dedicated skill. These workflows preserve raw notes, generate reviewable artifacts first, and require approval for editorial changes. Query and graph operations are read-only; capture stores only explicitly submitted content; agenda distinguishes explicit deadlines from proposed dates. Never improvise a bulk rewrite or passive chat archive from the dispatcher.
+
 ### ask
-Short, friendly clarification: _"What would you like to do? Options: process, quick-sync, learn, link, context, status, rules."_
+Short, friendly clarification: _"What would you like to do? Options: process, quick-sync, learn, link, context, triage, refine, connect, reflect, weekly-review, query, capture, graph, agenda, status, rules."_
 
 ---
 

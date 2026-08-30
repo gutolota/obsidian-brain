@@ -1,0 +1,10 @@
+.pytest_cache/
+__pycache__/
+*.py[cod]
+.claude/settings.local.json
+
+# User runtime data must never be committed.
+config.local.md
+brain-rules.local.md
+channel-policy.local.md
+*.db

@@ -87,6 +87,7 @@ This keeps the prompt context small for trivial calls (like `status`) while stil
 
 | Agent | Platform | Install |
 |-------|----------|---------|
+| **Hermes Agent** | Linux / macOS / Windows | `./setup.sh` → select Hermes Agent |
 | **Claude Code** | Linux / macOS | `./setup.sh` or `npx skills add` (see below) |
 | **Claude Code** | Windows | `.\setup.ps1` in PowerShell |
 | **Gemini CLI / Antigravity** | Linux / macOS | `./adapters/gemini/install.sh` |
@@ -288,6 +289,36 @@ Added roles table and user-role junction. Seeded admin and viewer.
 
 - pg_trgm extension needed for fuzzy role name search
 ```
+
+---
+
+## Vault refinement workflows
+
+The skill family also supports a safe raw-to-evergreen workflow:
+
+| Command | Purpose |
+|---|---|
+| `/obsidian-brain:triage` | Build a review queue from raw notes |
+| `/obsidian-brain:refine <note>` | Draft a sourced evergreen note |
+| `/obsidian-brain:connect <note>` | Suggest justified semantic links |
+| `/obsidian-brain:reflect` | Track recurring themes with evidence |
+| `/obsidian-brain:weekly-review` | Aggregate tasks, completions, and inbox state |
+| `/obsidian-brain:agenda` | Aggregate daily-note tasks, deadlines, and cited suggestions |
+| `/obsidian-brain:query <question>` | Query the vault with cited sources |
+| `/obsidian-brain:capture <content>` | Explicitly capture a Telegram/Discord message |
+| `/obsidian-brain:graph <note>` | Explore wikilinks and neural neighbors |
+
+Raw note bodies are never overwritten. Renames, moves, merges, lifecycle changes, and body links require approval. Telegram and Discord use the same installed Hermes skills; capture is explicit rather than passive, and shared-channel queries follow `channel-policy.md`.
+
+The local knowledge index combines SQLite FTS5, a wikilink edge table, and 384-dimensional multilingual neural embeddings through FastEmbed/ONNX. The default model is `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`; it runs locally after a one-time download and incurs no API or embedding charge. Codex/ChatGPT and Claude subscription OAuth are used for agent reasoning, not assumed to provide embedding endpoints.
+
+The deterministic helper `scripts/vault_report.py` generates managed summaries without editing source notes:
+
+```bash
+python scripts/vault_report.py /path/to/vault --write --json /tmp/vault-inventory.json
+```
+
+See [`DESIGN-PTBR.md`](DESIGN-PTBR.md) for the complete design and safety model.
 
 ---
 

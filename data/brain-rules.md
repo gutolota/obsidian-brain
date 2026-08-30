@@ -14,6 +14,10 @@ These rules always apply when processing a session:
 4. **Decisions recorded**: technical decisions go in a `> [!summary]` callout within the session entry
 5. **Files listed**: created/edited files are listed with paths in inline code
 6. **No duplicates**: before adding TODOs, check if they already exist in the daily note
+7. **Raw notes are immutable sources**: never delete or replace their body; refine into a separate draft
+8. **Editorial approval**: ask before rename, move, merge, archive, lifecycle state changes, or adding body links
+9. **Evidence-backed reflection**: every trend or thematic claim cites source notes and labels inference
+10. **Tasks stay contextual**: keep tasks in their source note and aggregate them in dashboards
 
 ## Learned Rules
 

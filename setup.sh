@@ -20,6 +20,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # ── Agent definitions ────────────────────────────────────
 # Format: "label|skill_src|skills_dst|data_dir|detect_cmd"
 AGENTS=(
+  "Hermes Agent|.agents/skills|${HERMES_HOME:-$HOME/.hermes}/skills|${HERMES_HOME:-$HOME/.hermes}/obsidian-brain|hermes"
   "Claude Code|.claude/skills|$HOME/.claude/skills|$HOME/.claude/obsidian-brain|claude"
   "Universal — Codex, Cursor, Gemini CLI, Copilot +13 more|.agents/skills|$HOME/.agents/skills|$HOME/.agents/obsidian-brain|"
 )
@@ -123,6 +124,12 @@ install_agent() {
     echo -e "    ${GREEN}✓${NC} brain-rules.md ${DIM}(new)${NC}"
   else
     echo -e "    ${YELLOW}→${NC} brain-rules.md ${DIM}(preserved)${NC}"
+  fi
+  if [ ! -f "$data_dir/channel-policy.md" ]; then
+    cp "$SCRIPT_DIR/data/channel-policy.md" "$data_dir/channel-policy.md"
+    echo -e "    ${GREEN}✓${NC} channel-policy.md ${DIM}(new — review shared-channel access!)${NC}"
+  else
+    echo -e "    ${YELLOW}→${NC} channel-policy.md ${DIM}(preserved)${NC}"
   fi
   echo ""
 }

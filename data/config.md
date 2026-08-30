@@ -7,8 +7,13 @@
 
 ## Folders
 
-- **Daily Notes**: `Journal` (file format: `YYYY-MM-DD.md`)
+- **Raw Notes**: `1 - Notas brutas`
+- **Source Material**: `2 - Material fonte`
+- **Complete Notes**: `3 - Notas completas`
+- **Daily Notes**: `Diário` (file format: `YYYY-MM-DD.md`)
 - **Projects**: `Projects` (project notes go in `Projects/<project-name>/`)
+- **Indexes**: `Indexes`
+- **System Reports**: `Sistema`
 - **Templates**: `Templates`
 
 ## Behavior
@@ -19,7 +24,22 @@
   - `auto` → try CLI first, fall back to filesystem
 - **Create daily note if missing**: `yes`
 - **Create project folder if missing**: `yes`
-- **Confirm before writing**: `no` (writes directly, shows summary after)
+- **Confirm before writing**: `no` (writes session logs directly, shows summary after)
+- **Confirm editorial changes**: `yes` (required for rename, move, merge, archive, status changes, and body links)
+- **Preserve raw note bodies**: `yes`
+- **Reflection window**: `30 days`
+- **Weekly review day**: `Sunday`
+
+## Local Knowledge Base
+
+- **Database path**: `~/.hermes/obsidian-brain/knowledge.db`
+- **Embedding backend**: `fastembed`
+- **Embedding model**: `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`
+- **Embedding dimensions**: `384`
+- **Hybrid retrieval**: `SQLite FTS5 + cosine similarity + wikilink graph`
+- **Exclude generated reports**: `yes`
+- **Exclude credential-like notes**: `yes`
+- **Passive group capture**: `no`
 
 ## Daily Note Template
 

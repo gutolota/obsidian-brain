@@ -9,7 +9,7 @@ Bind the current working directory to a vault project folder. Run once per proje
 
 ## Step 1 — Resolve inputs
 
-- **Workspace**: current working directory (e.g. `/home/user/dev/my-app`)
+- **Workspace**: current working directory (e.g. `~/dev/my-app`)
 - **Project folder argument**: taken from `$ARGUMENTS` (e.g. `Projects/my-app`)
 
 If `$ARGUMENTS` is empty, suggest a default based on the workspace basename:
@@ -37,7 +37,7 @@ _"This workspace is already linked to `<existing>`. Replace it? (yes/no)"_
 
 Add or update the entry:
 ```markdown
-- `/home/user/dev/my-app` → `Projects/my-app`
+- `~/dev/my-app` → `Projects/my-app`
 ```
 
 ## Step 3 — Bootstrap project files in the vault
