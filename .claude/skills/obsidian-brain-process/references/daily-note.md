@@ -52,6 +52,11 @@ Look for `## Sessions`:
 Look for `## Tasks`:
 - If found → for each new TODO, check if a similar one already exists (fuzzy match by intent, not exact text). Skip duplicates.
 - If not found → add the heading and the new TODOs
+- Write every actionable item in Tasks-compatible Markdown: `- [ ] <concrete action>`.
+- Preserve Tasks emoji metadata when present: `🛫 YYYY-MM-DD` start, `⏳ YYYY-MM-DD` scheduled, `📅 YYYY-MM-DD` due, `🔁 ...` recurrence, `✅ YYYY-MM-DD` completion.
+- Never require or inject `#task`; the supported Tasks configuration indexes every Markdown checkbox and the Dataview dashboard scans `Diário/` directly.
+- Put dates on the same checkbox line. Indented checklist items are subtasks and remain attached to their parent task.
+- Add `📅` only for an explicit deadline. A proposed date belongs in prose until the user approves it.
 
 Examples of duplicates to detect:
 - "Write tests for auth" ≈ "Add integration tests for auth middleware" → skip

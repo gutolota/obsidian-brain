@@ -51,22 +51,21 @@ Uma ideia sobre grafos e linguagem.
     assert payload["done_tasks"] == 1
     assert source.read_text(encoding="utf-8") == original
     assert (vault / "Sistema" / "Resumo da vault.md").exists()
-    assert (vault / "Sistema" / "Resumo de tarefas.md").exists()
-    assert len(payload["written"]) == 5
+    assert not (vault / "Sistema" / "Resumo de tarefas.md").exists()
+    assert len(payload["written"]) == 4
 
 
-def test_generated_task_report_keeps_source_links(tmp_path):
-    vault = tmp_path / "vault"
-    raw = vault / "1 - Notas brutas"
-    raw.mkdir(parents=True)
-    (raw / "Plano.md").write_text("- [ ] Fazer teste\n", encoding="utf-8")
+def test_task_dashboard_is_dynamic_dataview_template():
+    template = Path(__file__).parents[1] / "templates" / "vault" / "tarefas.md"
+    content = template.read_text(encoding="utf-8")
 
-    run_report(vault, "--write")
-    report = (vault / "Sistema" / "Resumo de tarefas.md").read_text(encoding="utf-8")
-
-    assert "Fazer teste" in report
-    assert "[[1 - Notas brutas/Plano|Plano]]" in report
-    assert "1 abertas" in report
+    assert content.count("```dataview") >= 5
+    assert "TASK" in content
+    assert "WHERE !completed" in content
+    assert "date(today)" in content
+    assert "FROM \"\"" in content
+    assert '!startswith(file.path, "Sistema/")' in content
+    assert "Resumo de tarefas" not in content
 
 
 def test_dry_run_writes_no_system_folder(tmp_path):

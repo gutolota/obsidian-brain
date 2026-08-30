@@ -17,7 +17,8 @@ These rules always apply when processing a session:
 7. **Raw notes are immutable sources**: never delete or replace their body; refine into a separate draft
 8. **Editorial approval**: ask before rename, move, merge, archive, lifecycle state changes, or adding body links
 9. **Evidence-backed reflection**: every trend or thematic claim cites source notes and labels inference
-10. **Tasks stay contextual**: keep tasks in their source note and aggregate them in dashboards
+10. **Tasks stay contextual**: keep tasks in their source note and aggregate them live with Dataview; never copy task checkboxes into generated summaries
+11. **Safe automatic refinement**: automation may create sourced `status: draft` notes under the configured complete-note draft folder, but it must not mark the source processed or promote the draft to active without approval
 
 ## Learned Rules
 
@@ -30,7 +31,9 @@ These rules always apply when processing a session:
   To deactivate a rule, edit manually and append (INACTIVE) to the end.
 -->
 
-_No rules learned yet. Use `/obsidian-brain:learn` or give instructions during sessions._
+- **Task management safety and dates**: Validate that a task has a concrete action, identifiable object, and sufficient context before reporting it. Keep explicit due dates separate from proposed dates; only an open task with an explicit due date earlier than the execution date is overdue. Use configurable `completed_archive_after_days` before proposing archival. Never mark tasks complete without source evidence, and require approval before moving or removing completed tasks from source notes. See `task-management-policy.md` in the agent data directory.
+
+_Additional learned rules may be added below._
 
 ## Monitored Projects
 

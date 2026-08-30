@@ -1,7 +1,7 @@
 ---
 name: obsidian-brain:weekly-review
 description: Prepare an evidence-backed Obsidian weekly review.
-version: 0.2.0
+version: 0.3.0
 author: Obsidian Brain contributors, Hermes Agent
 license: MIT
 platforms: [linux, macos, windows]
@@ -26,11 +26,12 @@ Resolve the vault and load `references/reflection.md`, `references/task-policy.m
 ## Procedure
 
 1. Run the bundled report helper in read-only or report mode for the configured vault. Completion: task and note counts are available.
-2. Review overdue, upcoming, undated, and recently completed tasks. Completion: each task retains its source-note link.
+2. Read the configured Dataview task dashboard path. Use source checkboxes for analysis, but never copy them into the weekly report; the live dashboard remains the unified task surface. Completion: task categories point to the dashboard and any discussed item retains its source-note link.
 3. Review raw notes in `inbox` or `ready`, isolated complete notes, unresolved questions, and active projects without recent updates. Completion: every listed item links to a source.
 4. Summarize completed work separately from open commitments. Completion: done and open tasks are never mixed.
 5. Suggest up to three priorities with rationale and identify uncertainty. Do not edit task status or due dates. Completion: priorities are proposals, not commitments.
-6. Refresh `Sistema/Revisão semanal.md` and optionally create a dated snapshot in `Diário/Revisões semanais/`. Completion: generated date and coverage are explicit.
+6. Run triage and, when automatic drafts are enabled, create up to the configured batch size of sourced complete-note drafts from strong candidates. Completion: each candidate has a draft path or a documented skip reason.
+7. Refresh `Sistema/Revisão semanal.md` and optionally create a dated snapshot in `Diário/Revisões semanais/`. Completion: generated date and coverage are explicit.
 
 ## Pitfalls
 

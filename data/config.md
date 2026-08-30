@@ -13,6 +13,7 @@
 - **Daily Notes**: `Diário` (file format: `YYYY-MM-DD.md`)
 - **Projects**: `Projects` (project notes go in `Projects/<project-name>/`)
 - **Indexes**: `Indexes`
+- **Task Dashboard**: `Indexes/Tarefas.md`
 - **System Reports**: `Sistema`
 - **Templates**: `Templates`
 
@@ -29,6 +30,10 @@
 - **Preserve raw note bodies**: `yes`
 - **Reflection window**: `30 days`
 - **Weekly review day**: `Sunday`
+- **Automatic complete-note drafts**: `yes`
+- **Complete-note draft folder**: `3 - Notas completas/_Rascunhos`
+- **Automatic refinement batch size**: `3`
+- **Completed task archive after days**: `30`
 
 ## Local Knowledge Base
 

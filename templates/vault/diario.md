@@ -2,17 +2,20 @@
 type: daily
 status: active
 date: {{date}}
-tags: [daily]
+tags: [daily-note]
 ---
 
-# {{date}}
+# {{date}} — {{date:dddd}}
 
-## O que fiz hoje
+## Sessions
 
-## Tarefas
+## Tasks
 
-## Ideias e perguntas
+> [!tip] Formato das tarefas
+> Use `- [ ] Ação concreta 📅 YYYY-MM-DD` para prazo, `⏳ YYYY-MM-DD` para agendamento e `🔁` para recorrência. O Tasks adiciona `✅ YYYY-MM-DD` ao concluir. Não é necessário adicionar `#task`.
 
-## Próximos passos
+## Notes
 
-## Notas soltas
+### Navegação
+
+- [[Indexes/Tarefas|Painel vivo de tarefas]]

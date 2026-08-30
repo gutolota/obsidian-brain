@@ -36,6 +36,7 @@ Map the user's input to one of these intents:
 | `capture`, "save this message", "send to obsidian" | **capture** | Save explicit content to the raw-note inbox |
 | `graph`, "what connects to this note" | **graph** | Explore wikilinks and local vector neighbors |
 | `agenda`, "process my journal", "organize deadlines" | **agenda** | Aggregate daily-note tasks and propose dates |
+| `mvp`, "turn this idea into an MVP", "prototype this idea" | **mvp** | Create a sourced, testable MVP plan and backlog |
 | Free text like _"focus on X"_ | **quick-sync (focused)** | Quick sync with that focus area |
 | Anything else ambiguous | **ask** | Briefly ask the user what they want |
 
@@ -65,6 +66,8 @@ For deeper guidance on each behavior, consult the relevant reference file:
 - `references/link-policy.md` — evidence required for semantic links
 - `references/reflection.md` — windows, counts, and interpretation limits
 - `references/safety-and-provenance.md` — approval and source-preservation rules
+
+When the vault has companion plugins, use them as one Markdown-preserving system: Calendar opens the configured daily note, the core Daily Notes plugin applies `Templates/Daily.md`, Templater and QuickAdd create notes from `Templates/`, Tasks parses every checkbox without requiring `#task`, Dataview renders `Indexes/Tarefas.md`, Metadata Menu edits frontmatter, and Various Complements suggests existing links. Never make a plugin-owned database the source of truth.
 
 Load only what you need for the current intent.
 
@@ -96,11 +99,11 @@ Same as `obsidian-brain:link` — bind the current workspace to a vault project 
 ### context
 Same as `obsidian-brain:context` — load vault files for the linked project into working memory.
 
-### triage / refine / connect / reflect / weekly-review / query / capture / graph / agenda
+### triage / refine / connect / reflect / weekly-review / query / capture / graph / agenda / mvp
 Use the matching dedicated skill. These workflows preserve raw notes, generate reviewable artifacts first, and require approval for editorial changes. Query and graph operations are read-only; capture stores only explicitly submitted content; agenda distinguishes explicit deadlines from proposed dates. Never improvise a bulk rewrite or passive chat archive from the dispatcher.
 
 ### ask
-Short, friendly clarification: _"What would you like to do? Options: process, quick-sync, learn, link, context, triage, refine, connect, reflect, weekly-review, query, capture, graph, agenda, status, rules."_
+Short, friendly clarification: _"What would you like to do? Options: process, quick-sync, learn, link, context, triage, refine, connect, reflect, weekly-review, query, capture, graph, agenda, mvp, status, rules."_
 
 ---
 

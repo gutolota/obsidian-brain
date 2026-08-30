@@ -1,12 +1,13 @@
 ---
 type: evergreen
-status: active
+status: draft
 created: {{date}}
 updated: {{date}}
 topics: []
 projects: []
 source_notes: []
 confidence: low
+generated_by: obsidian-brain
 ---
 
 # {{title}}

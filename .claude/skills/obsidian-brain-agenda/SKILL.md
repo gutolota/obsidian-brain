@@ -1,7 +1,7 @@
 ---
 name: obsidian-brain:agenda
 description: Turn daily notes into tasks, deadline suggestions, and plans.
-version: 0.2.0
+version: 0.3.0
 author: Obsidian Brain contributors, Hermes Agent
 license: MIT
 platforms: [linux, macos, windows]
@@ -26,12 +26,12 @@ Resolve the active Hermes home from `$HERMES_HOME` (default `~/.hermes`) and rea
 
 ## Procedure
 
-1. Run the report helper to refresh deterministic task and note inventories. Completion: exact open/done totals are available.
+1. Run the report helper for deterministic note inventory only, then use the configured Dataview dashboard as the unified task surface. Do not generate or copy a static task list. Completion: exact open/done totals are available and the dashboard path is cited.
 2. Read daily notes from the last 14 days, plus older daily notes containing open tasks. Completion: every open task retains its source-note wikilink and original text.
 3. Separate dates into: explicit Tasks-plugin dates, explicit natural-language deadlines, and inferred suggestions. Completion: no inferred date is labeled as a deadline.
 4. Group open work as overdue, today, next seven days, later, undated, waiting, and someday. Completion: each item appears once.
 5. Read nearby context around tasks and recent reflections. Suggest up to five next actions, schedule adjustments, or clarifying questions. Completion: each suggestion cites the note that motivated it.
-6. Write `Sistema/Agenda e prazos.md` with sections for tasks, explicit deadlines, proposed dates pending approval, completed work, and suggestions. Do not edit source checkboxes or dates. Completion: the generated file is a single review surface.
+6. Write `Sistema/Agenda e prazos.md` as an interpretive planning note: counts, exceptional deadlines, dates to confirm, and grounded suggestions only. Link to the Dataview dashboard for the complete live task list instead of duplicating task checkboxes. Do not edit source checkboxes or dates. Completion: the agenda contains no copied master task list.
 7. If the user approves a proposed date or task rewrite, patch the exact source line and preserve all Tasks-plugin metadata. Completion: only approved source lines change.
 
 ## Date Rules

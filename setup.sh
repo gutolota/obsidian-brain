@@ -4,7 +4,7 @@
 #
 #  Installs the obsidian-brain skill family for one or more
 #  coding agents. Re-running is always safe — user data
-#  (config.md, brain-rules.md) is never overwritten.
+#  (config.md, rules, and policies) is never overwritten.
 # ══════════════════════════════════════════════════════════
 set -euo pipefail
 
@@ -130,6 +130,18 @@ install_agent() {
     echo -e "    ${GREEN}✓${NC} channel-policy.md ${DIM}(new — review shared-channel access!)${NC}"
   else
     echo -e "    ${YELLOW}→${NC} channel-policy.md ${DIM}(preserved)${NC}"
+  fi
+  if [ ! -f "$data_dir/task-management-policy.md" ]; then
+    cp "$SCRIPT_DIR/data/task-management-policy.md" "$data_dir/task-management-policy.md"
+    echo -e "    ${GREEN}✓${NC} task-management-policy.md ${DIM}(new)${NC}"
+  else
+    echo -e "    ${YELLOW}→${NC} task-management-policy.md ${DIM}(preserved)${NC}"
+  fi
+  if [ ! -f "$data_dir/plugin-integration.md" ]; then
+    cp "$SCRIPT_DIR/data/plugin-integration.md" "$data_dir/plugin-integration.md"
+    echo -e "    ${GREEN}✓${NC} plugin-integration.md ${DIM}(new)${NC}"
+  else
+    echo -e "    ${YELLOW}→${NC} plugin-integration.md ${DIM}(preserved)${NC}"
   fi
   echo ""
 }

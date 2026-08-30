@@ -1,7 +1,7 @@
 ---
 name: obsidian-brain:triage
 description: Triage raw Obsidian notes without destroying sources.
-version: 0.2.0
+version: 0.3.0
 author: Obsidian Brain contributors, Hermes Agent
 license: MIT
 platforms: [linux, macos, windows]
@@ -31,7 +31,8 @@ Read the configured vault path and folders from the active profile data director
 3. Recommend one state: `incubating`, `ready`, `processed`, or `archived`. Never mark `processed` without an existing destination note. Completion: every state has a one-sentence reason.
 4. Search the vault by distinctive title terms and concepts. Suggest no more than five links per note and explain each relationship. Completion: every suggested target exists.
 5. Write or refresh `Sistema/Sugestões de triagem.md` as a review queue. Do not rename, move, archive, or rewrite source notes automatically. Completion: the report links every examined source.
-6. If the user explicitly approves specific metadata edits, use `patch` only on those notes and preserve body text byte-for-byte. Completion: each approved note has the requested metadata and unchanged body.
+6. When automatic complete-note drafts are enabled, hand off up to the configured batch size of high-confidence `ready` candidates to `obsidian-brain:refine`. Draft creation is additive and needs no approval; source mutation and promotion still do. Completion: every handed-off source either has one draft under the complete-note draft folder or a documented skip reason.
+7. If the user explicitly approves specific metadata edits, use `patch` only on those notes and preserve body text byte-for-byte. Completion: each approved note has the requested metadata and unchanged body.
 
 ## Output Contract
 

@@ -251,12 +251,12 @@ After a few `process` runs throughout the day:
 
 ```markdown
 ---
-date: 2026-05-06
+date: YYYY-MM-DD
 tags: [daily-note]
-aliases: [Tuesday]
+aliases: [Weekday]
 ---
 
-# 2026-05-06 — Tuesday
+# YYYY-MM-DD — Weekday
 
 ## Sessions
 
@@ -299,14 +299,24 @@ The skill family also supports a safe raw-to-evergreen workflow:
 | Command | Purpose |
 |---|---|
 | `/obsidian-brain:triage` | Build a review queue from raw notes |
-| `/obsidian-brain:refine <note>` | Draft a sourced evergreen note |
+| `/obsidian-brain:refine <note>` | Create a sourced draft inside the complete-notes hierarchy |
 | `/obsidian-brain:connect <note>` | Suggest justified semantic links |
 | `/obsidian-brain:reflect` | Track recurring themes with evidence |
-| `/obsidian-brain:weekly-review` | Aggregate tasks, completions, and inbox state |
-| `/obsidian-brain:agenda` | Aggregate daily-note tasks, deadlines, and cited suggestions |
+| `/obsidian-brain:weekly-review` | Review live tasks and create a small batch of complete-note drafts |
+| `/obsidian-brain:agenda` | Interpret deadlines and suggestions without duplicating tasks |
 | `/obsidian-brain:query <question>` | Query the vault with cited sources |
 | `/obsidian-brain:capture <content>` | Explicitly capture a Telegram/Discord message |
 | `/obsidian-brain:graph <note>` | Explore wikilinks and neural neighbors |
+
+### Live task dashboard
+
+Tasks remain in their source notes. Copy `templates/vault/tarefas.md` to the configured task-dashboard path (default `Indexes/Tarefas.md`). Its Dataview queries render overdue, current, upcoming, undated, open, and recently completed tasks directly from the vault, so no generated task index needs to be refreshed.
+
+`vault_report.py` still computes task counts for deterministic audits, but it no longer writes `Sistema/Resumo de tarefas.md` or duplicates task checkboxes.
+
+### Automatic complete-note drafts
+
+Triage and weekly review may create up to the configured batch size of additive drafts under `3 - Notas completas/_Rascunhos/`. Each draft is `status: draft`, cites `source_notes`, and leaves the raw source unchanged. Promotion to `status: active`, merging, moving, or marking the source as processed still requires approval.
 
 Raw note bodies are never overwritten. Renames, moves, merges, lifecycle changes, and body links require approval. Telegram and Discord use the same installed Hermes skills; capture is explicit rather than passive, and shared-channel queries follow `channel-policy.md`.
 

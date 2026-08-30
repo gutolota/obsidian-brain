@@ -218,26 +218,6 @@ def build_summary(vault: Path, notes: list[Note], now: dt.datetime, raw_folder: 
     return out
 
 
-def build_tasks(notes: list[Note], now: dt.datetime) -> str:
-    out = managed_header("Resumo de tarefas", now)
-    out += "## Tarefas abertas\n\n"
-    opened = [(n, task) for n in notes for task in n.open_tasks]
-    if opened:
-        for note, task in opened:
-            out += f"- [ ] {task} — {task_source_link(note)}\n"
-    else:
-        out += "_Nenhuma tarefa aberta encontrada._\n"
-    out += "\n## Concluídas registradas\n\n"
-    done = [(n, task) for n in notes for task in n.done_tasks]
-    if done:
-        for note, task in done[-100:]:
-            out += f"- [x] {task} — {task_source_link(note)}\n"
-    else:
-        out += "_Nenhuma tarefa concluída encontrada._\n"
-    out += f"\nTotal: **{len(opened)} abertas**, **{len(done)} concluídas**.\n"
-    return out
-
-
 def build_queue(notes: list[Note], now: dt.datetime, raw_folder: str) -> str:
     raw = [n for n in notes if n.path.startswith(raw_folder + "/")]
     candidates = sorted(raw, key=lambda n: n.mtime, reverse=True)
@@ -289,7 +269,7 @@ def build_weekly(notes: list[Note], now: dt.datetime, raw_folder: str) -> str:
     for note in sorted(touched, key=lambda n: n.mtime, reverse=True)[:30]:
         out += f"- {wikilink(note)} · {note.mtime[:10]}\n"
     out += "\n## Próximas decisões do usuário\n\n"
-    out += "- [ ] Revisar tarefas abertas no [[Sistema/Resumo de tarefas]].\n"
+    out += "- [ ] Revisar tarefas abertas no [[Indexes/Tarefas]].\n"
     out += "- [ ] Selecionar notas para lapidação em [[Sistema/Caixa de lapidação]].\n"
     out += "- [ ] Validar hipóteses no [[Sistema/Radar de pensamentos]].\n"
     out += "\n> [!note] Limite\n> Este relatório não altera tarefas, prioridades, datas ou estados de notas.\n"
@@ -341,7 +321,6 @@ def main() -> int:
 
     reports = {
         "Resumo da vault.md": build_summary(vault, notes, now, args.raw_folder, args.complete_folder),
-        "Resumo de tarefas.md": build_tasks(notes, now),
         "Caixa de lapidação.md": build_queue(notes, now, args.raw_folder),
         "Radar de pensamentos.md": build_radar(vault, notes, now),
         "Revisão semanal.md": build_weekly(notes, now, args.raw_folder),
