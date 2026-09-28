@@ -83,7 +83,7 @@ After adding/refining a rule, always confirm:
 🧠 New rule learned:
    "<rule text>"
    
-   Saved to ~/.agents/obsidian-brain/brain-rules.md
+   Saved to ${HERMES_HOME:-~/.hermes}/obsidian-brain/brain-rules.md
    Will apply to all future syncs.
 ```
 

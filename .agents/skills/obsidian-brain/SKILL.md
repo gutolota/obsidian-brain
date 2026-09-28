@@ -50,11 +50,17 @@ If the user invoked a dedicated sub-command (`/obsidian-brain:process`, etc.), t
 
 For any intent that touches the vault (everything except `status` and `rules`), read these files first:
 
-1. `~/.agents/obsidian-brain/config.md` → vault path, folders, preferences
-2. `~/.agents/obsidian-brain/brain-rules.md` → learned rules (cumulative — respect all)
+1. `${HERMES_HOME:-~/.hermes}/obsidian-brain/config.md` → vault path, folders, preferences
+2. `${HERMES_HOME:-~/.hermes}/obsidian-brain/brain-rules.md` → learned rules (cumulative — respect all)
+3. `${HERMES_HOME:-~/.hermes}/obsidian-brain/channel-policy.md` → channel access and privacy rules
+4. `${HERMES_HOME:-~/.hermes}/obsidian-brain/task-management-policy.md` → task source-of-truth and due-date rules
+5. `${HERMES_HOME:-~/.hermes}/obsidian-brain/plugin-integration.md` → installed plugin behavior when relying on plugin views or templates
 
-If either is missing, create them from defaults (see `references/defaults.md`).
+Use platform-native security: resolve the active Hermes profile's data directory, not a hard-coded `~/.agents` path. For shared Telegram or Discord surfaces, apply `channel-policy.md` before retrieval or capture; never expose private vault content because a search result contains it.
 
+These are user data, not skill references. On Hermes, resolve each path under the active profile's data directory. If a policy file is missing, use the restrictive rules in this skill and ask before widening access or changing task dates. Do not claim plugin behavior is verified from config alone.
+
+If `config.md` or `brain-rules.md` is missing, create them from defaults (see `references/defaults.md`). Never create missing channel/task/plugin policy files from generic defaults without user approval.
 
 For deeper guidance on each behavior, consult the relevant reference file:
 - `references/extraction.md` — how to extract from a conversation
@@ -67,7 +73,7 @@ For deeper guidance on each behavior, consult the relevant reference file:
 - `references/reflection.md` — windows, counts, and interpretation limits
 - `references/safety-and-provenance.md` — approval and source-preservation rules
 
-When the vault has companion plugins, use them as one Markdown-preserving system: Calendar opens the configured daily note, the core Daily Notes plugin applies `Templates/Daily.md`, Templater and QuickAdd create notes from `Templates/`, Tasks parses every checkbox without requiring `#task`, Dataview renders `Indexes/Tarefas.md`, Metadata Menu edits frontmatter, and Various Complements suggests existing links. Never make a plugin-owned database the source of truth.
+When the vault has companion plugins, read `plugin-integration.md` before relying on plugin configuration. Keep Markdown files as source of truth; plugin databases only provide views, capture, formatting, or navigation. For task extraction and aggregation, apply `task-management-policy.md` and keep tasks in source notes. Shared channels must follow `channel-policy.md` and retrieve only from authorized paths.
 
 Load only what you need for the current intent.
 
@@ -91,7 +97,7 @@ Show config.md path, vault path, daily note folder, count of learned rules, coun
 List every entry under `## Learned Rules` from `brain-rules.md`. Group by date if useful.
 
 ### reset
-Ask: _"This will clear all learned rules from brain-rules.md (config and base rules will be preserved). Continue? (yes/no)"_ — only proceed on explicit `yes`.
+Ask: _"This will clear all learned rules from brain-rules.md (config and base rules will be preserved). Continue? (yes/no)"_ — only proceed on explicit `yes`. When user confirms reset, archive existing rule text before clearing, unless user explicitly requests permanent deletion.
 
 ### link
 Same as `obsidian-brain:link` — bind the current workspace to a vault project folder.
@@ -100,7 +106,7 @@ Same as `obsidian-brain:link` — bind the current workspace to a vault project 
 Same as `obsidian-brain:context` — load vault files for the linked project into working memory.
 
 ### triage / refine / connect / reflect / weekly-review / query / capture / graph / agenda / mvp
-Use the matching dedicated skill. These workflows preserve raw notes, generate reviewable artifacts first, and require approval for editorial changes. Query and graph operations are read-only; capture stores only explicitly submitted content; agenda distinguishes explicit deadlines from proposed dates. Never improvise a bulk rewrite or passive chat archive from the dispatcher.
+Use the matching dedicated skill. Preserve raw notes and generate reviewable artifacts before editorial changes. Query and graph are read-only; capture stores only explicitly submitted content; agenda distinguishes committed deadlines from proposed dates. Apply privacy, task, and source-preservation policies. Never improvise a bulk rewrite or passive chat archive from the dispatcher.
 
 ### ask
 Short, friendly clarification: _"What would you like to do? Options: process, quick-sync, learn, link, context, triage, refine, connect, reflect, weekly-review, query, capture, graph, agenda, mvp, status, rules."_
@@ -126,6 +132,8 @@ For `process`, the compression suggestion comes AFTER this summary.
 - **Never run compression commands** — only suggest them, let the user decide
 - **Never overwrite** `brain-rules.md` — only append/refine
 - **Never modify** `config.md` — it's user-owned
-- Use the **obsidian CLI** if available (`obsidian --version` works) — fall back to filesystem otherwise
+- Use the **obsidian CLI** only when user configuration explicitly permits it and the operation stays non-destructive; otherwise use filesystem tools
+- Never expose vault content in shared channels without applying the channel's allowlist and privacy policy
+- Local indexing and reports exclude sensitive notes and generated/system folders; inspect sources before answering and treat filters as best-effort, not guaranteed
 - All output to the vault is **English** by default (see `config.md` to change)
 - **Windows**: replace `~` with `%USERPROFILE%` (cmd) or `$env:USERPROFILE` (PowerShell)

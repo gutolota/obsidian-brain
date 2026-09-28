@@ -4,7 +4,9 @@ Default content for `config.md` and `brain-rules.md` when bootstrapping the brai
 
 ## Default config.md
 
-Write this to `~/.agents/obsidian-brain/config.md` if it doesn't exist:
+Write this to `${HERMES_HOME:-~/.hermes}/obsidian-brain/config.md` if it doesn't exist:
+
+> On Hermes, resolve the active profile's data directory first. Do not assume the default profile path. Other adapters may substitute their own data directory.
 
 ```markdown
 # Obsidian Brain — Configuration
@@ -57,11 +59,11 @@ aliases: [{{day_of_week}}]
 - The "Vault name" field is only used by the obsidian CLI
 ```
 
-After creating, **inform the user**: _"Created default config at `~/.agents/obsidian-brain/config.md`. Please edit it to set your real vault path before running again."_
+After creating, **inform the user**: _"Created default config at `${HERMES_HOME:-~/.hermes}/obsidian-brain/config.md`. Please edit it to set your real vault path before running again."_
 
 ## Default brain-rules.md
 
-Write this to `~/.agents/obsidian-brain/brain-rules.md` if it doesn't exist:
+Write this to `${HERMES_HOME:-~/.hermes}/obsidian-brain/brain-rules.md` if it doesn't exist:
 
 ```markdown
 # Obsidian Brain — Processing Rules
@@ -116,6 +118,7 @@ _No projects registered yet._
 
 - Bootstrap **config.md** only when missing — never overwrite
 - Bootstrap **brain-rules.md** only when missing — never overwrite
+- Do not silently bootstrap channel, task, or plugin policy files from generic defaults; treat missing policy as restrictive and ask before changing behavior
 - Bootstrapping happens transparently when any obsidian-brain skill needs the file
 
 ## After bootstrap
